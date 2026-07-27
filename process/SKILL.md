@@ -27,6 +27,8 @@ PRD and the design.
 **Locate the PRD folder before writing to it.** Don't assume a path exists:
 check the repo for an existing PRD or docs location first; if one exists but
 isn't obvious, ask the user where it lives. If none exists, create `docs/prd/`.
+The PRD lives inside the repo it governs, never in an external notes system:
+it's canonical, versioned material (§Division of truth), not a side note.
 
 The PRD folder is the numbered product pipeline, read in order; each stage
 derives from the ones before it:
