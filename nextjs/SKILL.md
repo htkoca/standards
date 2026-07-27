@@ -16,7 +16,6 @@ Runtime, language, and what "done" requires.
 3. **Exported constants, hooks, types, and utils carry TSDoc.** Every export in `constants/`, `hooks/`, `types/`, and `utils/` opens with a `/** */` block: a one-line summary, plus `@param`/`@returns` for functions where the signature does not already say it, and per-member docs on non-obvious type fields; the doc is the contract a caller reads without opening the body. Components document themselves through their props types, not TSDoc.
 4. **A server started for verification is killed when the check ends**: a `pnpm dev` or `pnpm start` run to confirm a change holds the port and outlives the task otherwise, so the next run collides or, worse, verifies against stale output. Long-running servers the human started are theirs to stop.
 5. **A verification server runs on its own port and dies by its own pid.** Start it with an explicit `-p` well clear of `3000`, capture the pid (`pnpm start -p 3987 & echo $!`), and kill that pid. Never `pkill -f next-server` or any name match: it matches every Next process on the machine, including the human's dev server, and rule 4 leaves that one theirs to stop.
-6. **Tests are [testing](../testing/SKILL.md)'s concern.**
 
 ## Concepts
 
@@ -25,7 +24,8 @@ Runtime, language, and what "done" requires.
 3. **Static generation everywhere.** No runtime content fetching. Dynamic routes prebuild with `generateStaticParams` over their id lists and return `notFound()` for unknown ids.
 4. **All images render through `next/image`** with explicit width and height. (Video loops are not images; they render as media elements with their own posters and dimensions.)
 5. **Fonts load through `next/font/local`**, exposed as CSS variables and applied on `<body>`.
-6. **Metadata via the Metadata API**: a full root export plus per-page overrides (never hand-rolled `<head>` tags). What the metadata contains is [seo](../seo/SKILL.md)'s concern.
+6. **Metadata via the Metadata API**
+: a full root export plus per-page overrides (never hand-rolled `<head>` tags).
 
 ## Folder structure
 
@@ -47,7 +47,3 @@ Runtime, language, and what "done" requires.
    ```
 
    Folders are added only when they earn their place: no empty scaffolding for layers a project doesn't use yet.
-
-## Origin
-
-Extracted from `docs/01-standards/nextjs.md`, identical across `tkodev-web-v5`, `kindred-web`, and `boilerplate-web`.

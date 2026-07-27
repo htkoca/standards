@@ -13,7 +13,3 @@ written until a strategy is settled in the owning project doc; coverage is never
    green (it passes with no tests), so a strategy can land without
    re-plumbing.
 3. **When tests exist, they are colocated** with what they test.
-
-## Origin
-
-Extracted from `docs/01-standards/testing.md`, identical across `tkodev-web-v5`, `kindred-web`, and `boilerplate-web`.

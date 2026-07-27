@@ -13,7 +13,3 @@ Where content lives, how it's typed, and how state is managed.
 4. **Dates:** zone through `fromZonedTime(iso, appTimeZone)`, never bare `new Date()`; display-only dates are pre-formatted strings.
 5. **Media:** every entry carries real dimensions and real `alt` text; `src` paths are site-absolute under `public/`.
 6. **Licensed assets stay put.** Licensed fonts and imagery ship with the site but are never published to other repos or registries.
-
-## Origin
-
-Extracted from `docs/01-standards/data.md`, cross-checked against `kindred-web` and `boilerplate-web` (identical to each other; more portable phrasing than `tkodev-web-v5` on a few points, merged in).

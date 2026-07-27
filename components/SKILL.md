@@ -84,7 +84,3 @@ How components are added, shaped, styled, and organized. This skill owns authori
 ## Reusability
 
 1. **All components are reusable by construction.** Content is passed in via props or children, never defined inside a component. Content is defined in `constants/`, API calls, or pages (the consuming layer) only. A component with a hardcoded heading is a bug.
-
-## Origin
-
-Extracted from `docs/01-standards/components.md`, cross-checked against `kindred-web` and `boilerplate-web` (identical to each other; more portable phrasing than `tkodev-web-v5` on a few points, merged in).

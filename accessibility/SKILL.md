@@ -12,7 +12,3 @@ The floor, not a cleanup pass.
 3. **Contrast is checked in every theme scope**: AA contrast for text tokens (`muted-foreground` on `background` included) in the base theme and inside any inverse-color section.
 4. **Self-starting motion carries a control**: anything that begins moving on its own and runs past a few seconds (a marquee drift, a carousel) pairs with a keyboard-operable pause. A hover pause is not one: it reaches neither keyboard nor touch, and the reduced-motion path only serves the readers who set the preference.
 5. **Each landmark of a kind is named**: a page with more than one `nav` labels each (`Primary`, `Footer`, `Menu`), since an unnamed pair is indistinguishable to the reader listing them. The name is passed at the call site, never baked into the component.
-
-## Origin
-
-Extracted from `docs/01-standards/accessibility.md`, cross-checked against `kindred-web` and `boilerplate-web` (identical to each other; more portable phrasing than `tkodev-web-v5` on a few points, merged in).

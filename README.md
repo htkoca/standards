@@ -1,6 +1,6 @@
 # harness-skills
 
-Reusable Claude Code skills (`SKILL.md` per directory) extracted from project standards docs, for reuse across tkodev projects.
+Reusable agent skills (`SKILL.md` per directory) for project standards, portable across projects and usable from both Claude Code and Codex.
 
 ## Skills
 
@@ -10,11 +10,41 @@ Reusable Claude Code skills (`SKILL.md` per directory) extracted from project st
 - [git](git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
 - [nextjs](nextjs/SKILL.md) — App Router conventions, runtime foundations, folder structure
 - [performance](performance/SKILL.md) — LCP, lazy-loading, motion/font budgets
-- [process](process/SKILL.md) — delivery methodology: PRD pipeline, milestones, tasks, review tiers
+- [process](process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
 - [seo](seo/SKILL.md) — metadata, Open Graph, crawlable content
 - [testing](testing/SKILL.md) — testing strategy stance
 - [writing](writing/SKILL.md) — house style for docs, plans, PR/commit bodies
 
-## Origin
+## Using this from another repo
 
-Source: `docs/01-standards/*.md`, cross-checked across three sibling repos (`tkodev-web-v5`, `kindred-web`, `boilerplate-web`) that all carry the same standards set. `nextjs`, `process`, `seo`, `testing`, and `writing` are byte-identical across all three. `accessibility`, `components`, `data`, `git`, and `performance` differed slightly; `kindred-web` and `boilerplate-web` agreed with each other and used more portable phrasing than `tkodev-web-v5` (no career-notes references, no "v5 tokens"/"futuristic layer"), so those versions were merged in. Each skill was generalized just enough to drop any remaining hard references to a specific repo (e.g. `docs/02-prd/` treated as an example convention) while keeping the concrete rules intact. Re-sync manually if the source docs change.
+This repo isn't meant to be worked in directly by a project; vendor it in
+(git submodule, subtree, or plain clone, e.g. at `vendor/harness-skills`) and
+link the skills into each tool's own skills directory. Both Claude Code and
+Codex use the identical `<name>/SKILL.md` convention, just under different
+root folders, so one vendored copy serves both:
+
+- **Claude Code** scans `.claude/skills/<name>/SKILL.md`.
+- **Codex** scans `.agents/skills/<name>/SKILL.md` (repo root or current
+  directory).
+
+Symlink the skills a project needs into both:
+
+```sh
+for d in vendor/harness-skills/*/; do
+  name=$(basename "$d")
+  [ -f "$d/SKILL.md" ] || continue
+  ln -s "../../$d" ".claude/skills/$name"
+  ln -s "../../$d" ".agents/skills/$name"
+done
+```
+
+For distributing to many repos or teams without vendoring, both tools also
+support packaged, centrally-updatable distribution: Claude Code via a
+`.claude-plugin/marketplace.json` (`/plugin marketplace add`), Codex via its
+own plugin format. Heavier to set up than symlinking, but versioned and
+updated in one place.
+
+Codex also reads `AGENTS.md` at the repo root for persistent instructions.
+This repo's own [AGENTS.md](AGENTS.md) documents rules for working in *this*
+repo; reference it from a consuming project's `AGENTS.md` rather than merging
+its content in.

@@ -5,8 +5,8 @@ description: House style for project prose — docs, plans, PR and commit bodies
 
 # Writing
 
-How project prose reads: docs, the plan, PR and commit bodies. Where facts live is [process](../process/SKILL.md) §Division of truth's
-concern; this skill owns the sentences. Product or site copy is out of scope, since its
+How project prose reads: docs, the plan, PR and commit bodies. This skill owns
+the sentences, not where facts live. Product or site copy is out of scope, since its
 voice is the design's.
 
 ## Voice
@@ -57,7 +57,3 @@ voice is the design's.
 - Words over symbols in prose ("and", not "&").
 - **Don't rely on an agent's built-in memory system for durable project facts.** The repo is the memory:
   durable guidance belongs in the owning doc under `docs/`.
-
-## Origin
-
-Extracted from `docs/01-standards/writing.md`, identical across `tkodev-web-v5`, `kindred-web`, and `boilerplate-web`.

@@ -13,7 +13,3 @@ Fast is a feature; the presentation layer never gets to make the site feel slow.
 4. **The presentation layer has a budget.** Entry and loading sequences are capped in duration; motion never blocks interactivity or input.
 5. **Motion discipline.** Durations, easings, and variants are defined once and imported: no ad-hoc magic numbers per component.
 6. **Font loading causes no flash of invisible text and no layout shift** on swap.
-
-## Origin
-
-Extracted from `docs/01-standards/performance.md`, cross-checked against `kindred-web` and `boilerplate-web` (identical to each other; more portable phrasing than `tkodev-web-v5` on a few points, merged in).

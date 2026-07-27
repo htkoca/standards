@@ -1,14 +1,14 @@
 ---
 name: process
-description: Project delivery methodology — the PRD pipeline, division of truth between repo/design tool/GitHub, milestone kinds, task scoping, and the three-tier review model. Use when planning work, cutting milestones or tasks, deciding what belongs in which doc, or setting up a delivery process for a new project.
+description: Project delivery methodology for planning and initial implementation — the PRD pipeline, division of truth between repo/design tool/GitHub, and milestone kinds. Use when planning work, cutting milestones, deciding what belongs in which doc, or setting up a delivery process for a new project.
 ---
 
 # Process
 
-How work happens: the sources of truth, how they stay honest with each other,
-and how work is planned, parallelized, and reviewed. This skill is the methodology
-layer and stays project-agnostic; a project's PRD and plan derive
-their structure from it. How change is recorded is [git](../git/SKILL.md)'s concern.
+How work is planned and initially built: the sources of truth, how they stay
+honest with each other, and how milestones are cut and delivered. This skill
+is the methodology layer and stays project-agnostic; a project's PRD and plan
+derive their structure from it.
 
 ## The working loop
 
@@ -20,13 +20,16 @@ The brief and observations stages of the PRD (§The PRD) are the path toward the
 design: gathering, distillation, and direction-setting. The **design file is the
 designed solution** that path produces, transcribed into the design contract.
 Planning the implementation lays out the milestone graph (§Milestones) from the
-PRD and the design; delivery runs each milestone through the same cycle
-(§The delivery cycle).
+PRD and the design.
 
 ## The PRD
 
-`docs/02-prd/` is the numbered product pipeline, read in order; each stage derives
-from the ones before it:
+**Locate the PRD folder before writing to it.** Don't assume a path exists:
+check the repo for an existing PRD or docs location first; if one exists but
+isn't obvious, ask the user where it lives. If none exists, create `docs/prd/`.
+
+The PRD folder is the numbered product pipeline, read in order; each stage
+derives from the ones before it:
 
 | Stage | Owns |
 | --- | --- |
@@ -53,8 +56,8 @@ from the ones before it:
 Three authorities, each owning a different kind of truth and each with the
 rules that keep it honest:
 
-- **The repo holds law and state**: the PRD (ending in the plan,
-  `docs/02-prd/06-plan.md`, the milestone list with live status), the standards,
+- **The repo holds law and state**: the PRD (ending in the plan, `06-plan.md`
+  in the PRD folder, §The PRD, the milestone list with live status), the standards,
   and the code; versioned, canonical for intent, contract, and work status. Docs and code
   change together **in the same change**; a discovery the docs missed (a
   token value, a variant, a breakpoint) is written back to the owning doc,
@@ -67,41 +70,20 @@ rules that keep it honest:
   its nodes, not guesswork. Use structured design context (metadata/variables/code), not
   screenshots, when reading it. A component isn't done until it's been
   compared against its design node at desktop and mobile widths.
-- **GitHub holds review**: PRs, machine checks, preview deploys. Nothing
-  lives only on GitHub; a milestone's status flips in the plan, in the
+- **GitHub holds review**: the milestone PR, machine checks, preview deploys.
+  Nothing lives only on GitHub; a milestone's status flips in the plan, in the
   same PR as the work that completes it.
 
 When all three still leave a question genuinely ambiguous, ask; don't
 improvise the product.
 
-## The delivery cycle
-
-Every milestone runs the same three phases. The human steers at the two cheap
-points (the plan and the gate); agents and machines carry the middle.
-
-1. **Plan.** Scope comes from the PRD and the design frames: cut the
-   milestone into tasks by file ownership, map dependencies, mark trunk vs
-   leaf, tracked as task branches and PRs. An unknown that blocks the cut
-   gets a **spike** first: a throwaway experiment answering one question;
-   spike code is never merged, its answer is written back to the owning doc.
-   The human approves the cut before execution; steering a plan costs
-   minutes, steering merged code costs days.
-2. **Execute.** Trunk tasks merge serially first; leaf tasks fan out in
-   parallel worktrees. Every task PR must pass the machine checks and an
-   agent review before merge (§Review).
-3. **Gate.** The human reviews outcomes on the milestone branch's deployed
-   preview against the design frames at desktop and mobile widths, plus the
-   milestone's merged task PRs. Outcomes, not diffs; a human reads
-   code only on escalation.
-
 ## Milestones: the human gates
 
 A milestone is a reviewable increment behind a human gate, instantiated as an
-**entry in the plan** (`docs/02-prd/06-plan.md`) binding it to concrete scope, a
-definition of done, and a status; its tasks are cut at its plan step and tracked
-as branches and PRs. Milestones form a dependency graph, not a fixed sequence, laid
-out in the plan (§The PRD, `06-plan.md`); three kinds set what may run in
-parallel:
+**entry in the plan** (`06-plan.md` in the PRD folder, §The PRD) binding it to
+concrete scope, a definition of done, and a status. Milestones form a
+dependency graph, not a fixed sequence, laid out in the plan; three kinds set
+what may run in parallel:
 
 | Kind | The work | Parallelism |
 | --- | --- | --- |
@@ -120,65 +102,44 @@ parallel:
 - **The proving surface.** The first surface milestone is chosen deliberately:
   the riskiest or most representative surface, named by the observations
   stage, built through every layer end to end. Its gate is what unlocks
-  surface parallelism; the milestone graph may scope it tighter than a full
-  surface.
-- **The canonical arc.** Foundations (system) → the proving surface → the
-  remaining surfaces in parallel → polish and launch sweeps. Parallelism is
-  earned: it begins only once the proving surface's gate passes.
-- **Launch is a sweep** with a checklist gate: metadata and SEO verified,
-  analytics live, performance budgets met, domain cut over.
+  surface parallelism.
+- **The initial arc.** Foundations (system) → the proving surface. This is the
+  initial build: it proves the shared conventions and one full surface before
+  any further surface work is planned or parallelized.
 
-## Tasks: the agent work units
+## Delivering a milestone
 
-A task is one unit of work an agent can complete unattended, carrying goal,
-kind, owned files, dependencies, acceptance criteria, verification commands, and
-the design-tool node when visual; it lives as a branch and PR, not a persisted doc
-entry.
+Every milestone runs the same cycle. The human steers at the two cheap points
+(the plan and the gate); agents and machines carry the middle.
 
-- **Scope by file ownership.** A task lists the file globs it owns; two
-  tasks may run in parallel only if their owned sets don't overlap. The same
-  disjointness applies across sibling milestone branches.
-- **Trunk, then fan out.** Work touching shared files (theme, layout shell,
-  constants, utils) is a *trunk* task, serialized at the start of its
-  milestone; *leaf* tasks (components, pages) fan out afterwards in parallel
-  worktrees.
-- **Shared discoveries become system work.** When parallel work uncovers a
-  shared need (a primitive two surfaces want), it lands on `main` as its own
-  small system task and sibling branches merge `main` forward; never two
-  parallel copies of the same convention.
-- **Check the plan and open branches at task start**: the milestone's scope
-  and the sibling tasks in flight bound what may run in parallel.
-- **Status flips with the work.** A task moves through its branch and PR
-  (open → in-review → merged) in the same PR as the change it describes;
-  blocked is a state carried on the PR, not a comment.
+1. **Plan.** Scope comes from the PRD and the design frames: the milestone's
+   concrete scope and definition of done, cut as one entry in the plan. An
+   unknown that blocks the cut gets a **spike** first: a throwaway experiment
+   answering one question; spike code is never merged, its answer is written
+   back to the owning doc. The human approves the scope before build starts;
+   steering a plan costs minutes, steering merged code costs days.
+2. **Build.** The milestone's work lands on its own branch (§Branches and PRs)
+   as a single PR into `main`, passing machine checks and a review before
+   merge.
+3. **Gate.** The human reviews the outcome on the milestone branch's deployed
+   preview against the design frames at desktop and mobile widths. Outcomes,
+   not diffs; a human reads code only on escalation.
 
 ## Branches and PRs
 
 - One branch per milestone (`feat/m02-works`), cut from `main`.
-- One branch per task (`feat/m02-t04-works-ledger`), PR'd into the milestone
-  branch; the PR flips its task's status in the same diff.
-- The milestone branch PRs into `main` at the gate; merge `main` forward into
-  any milestone branch that runs long.
+- One PR per milestone, merged into `main` at the gate; its merge flips the
+  milestone's status in the plan, in the same diff.
 
 ## Review
 
 Three tiers, split by kind, not by priority:
 
 - **Machines check mechanics.** Lint, types, tests, build, and a green preview
-  deploy gate every PR; a human never spends attention on what CI can catch.
-- **Agents review correctness.** Every task PR, against the standards and
-  the task's acceptance criteria.
-- **Humans review taste.** At plan and gate only (§The delivery cycle): the
+  deploy gate the milestone PR; a human never spends attention on what CI can
+  catch.
+- **Agents review correctness.** Against the standards and the milestone's
+  definition of done.
+- **Humans review taste.** At plan and gate only (§Delivering a milestone): the
   qualities no check can score; fidelity to the design, motion feel, whether
   the thing is good.
-
-## The board
-
-The board is a query, not a service: milestone status lives in the plan and
-task status is the state of its open branches and PRs, so `docs/02-prd/06-plan.md`
-plus the live PRs are always the board and git history is the audit trail.
-Nothing is mirrored to an external tracker.
-
-## Origin
-
-Extracted from `docs/01-standards/process.md`, identical across `tkodev-web-v5`, `kindred-web`, and `boilerplate-web`.
