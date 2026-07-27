@@ -56,6 +56,13 @@ ln -s "$harness_skills/nextjs" .claude/skills/nextjs
 ln -s "$harness_skills/nextjs" .agents/skills/nextjs
 ```
 
+**Gitignore the symlinks** (`.claude/skills`, `.agents/skills`) when they point
+at a local clone's absolute path — that path is specific to one machine, so
+committing the symlink breaks on any other clone. Add the two paths to
+`.gitignore` and let each machine link its own local copy in. A symlink into
+a *vendored* copy (a submodule/subtree checked into the repo at a relative
+path) is portable and can be committed as-is.
+
 For distributing to many repos or teams without vendoring, both tools also
 support packaged, centrally-updatable distribution: Claude Code via a
 `.claude-plugin/marketplace.json` (`/plugin marketplace add`), Codex via its
