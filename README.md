@@ -13,6 +13,7 @@ Reusable agent skills (`SKILL.md` per directory) for project standards, portable
 - [process](process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
 - [seo](seo/SKILL.md) — metadata, Open Graph, crawlable content
 - [testing](testing/SKILL.md) — testing strategy stance
+- [vscode](vscode/SKILL.md) — editor-session hygiene (reopen after a move/rename)
 - [writing](writing/SKILL.md) — house style for docs, plans, PR/commit bodies
 
 ## Using this from another repo
