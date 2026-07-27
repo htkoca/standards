@@ -37,18 +37,22 @@ just under different root folders, so one copy serves all three:
   own `.opencode/skills/<name>/SKILL.md` — symlinking into `.claude/skills`
   or `.agents/skills` already covers it, no extra step needed.
 
-Symlink the skills a project needs into both, pointing at wherever the repo
-actually lives (a local clone's path, or the vendored copy):
+Since this repo's root *is* a flat directory of `<name>/SKILL.md` folders, one
+symlink per tool is enough — no need to link each skill individually:
 
 ```sh
 harness_skills=/path/to/harness-skills   # local clone or vendored copy
 
-for d in "$harness_skills"/*/; do
-  name=$(basename "$d")
-  [ -f "$d/SKILL.md" ] || continue
-  ln -s "$d" ".claude/skills/$name"
-  ln -s "$d" ".agents/skills/$name"
-done
+ln -s "$harness_skills" .claude/skills
+ln -s "$harness_skills" .agents/skills
+```
+
+To expose only a subset of skills instead of all of them, symlink individual
+skill folders one at a time rather than the whole directory:
+
+```sh
+ln -s "$harness_skills/nextjs" .claude/skills/nextjs
+ln -s "$harness_skills/nextjs" .agents/skills/nextjs
 ```
 
 For distributing to many repos or teams without vendoring, both tools also
