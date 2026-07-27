@@ -19,11 +19,16 @@ Reusable agent skills (`SKILL.md` per directory) for project standards, portable
 
 ## Using this from another repo
 
-This repo isn't meant to be worked in directly by a project; vendor it in
-(git submodule, subtree, or plain clone, e.g. at `vendor/harness-skills`) and
-link the skills into each tool's own skills directory. Claude Code, Codex,
-and OpenCode all use the identical `<name>/SKILL.md` convention, just under
-different root folders, so one vendored copy serves all three:
+This repo isn't meant to be worked in directly by a project. **Check for a
+local copy first**: if this repo is already cloned somewhere on the machine,
+symlink straight to it instead of vendoring a second copy — one clone can
+serve every local project. If no local copy exists, ask where one should
+live, or vendor it in (git submodule, subtree, or plain clone, e.g. at
+`vendor/harness-skills`).
+
+Either way, link the skills into each tool's own skills directory. Claude
+Code, Codex, and OpenCode all use the identical `<name>/SKILL.md` convention,
+just under different root folders, so one copy serves all three:
 
 - **Claude Code** scans `.claude/skills/<name>/SKILL.md`.
 - **Codex** scans `.agents/skills/<name>/SKILL.md` (repo root or current
@@ -32,14 +37,17 @@ different root folders, so one vendored copy serves all three:
   own `.opencode/skills/<name>/SKILL.md` — symlinking into `.claude/skills`
   or `.agents/skills` already covers it, no extra step needed.
 
-Symlink the skills a project needs into both:
+Symlink the skills a project needs into both, pointing at wherever the repo
+actually lives (a local clone's path, or the vendored copy):
 
 ```sh
-for d in vendor/harness-skills/*/; do
+harness_skills=/path/to/harness-skills   # local clone or vendored copy
+
+for d in "$harness_skills"/*/; do
   name=$(basename "$d")
   [ -f "$d/SKILL.md" ] || continue
-  ln -s "../../$d" ".claude/skills/$name"
-  ln -s "../../$d" ".agents/skills/$name"
+  ln -s "$d" ".claude/skills/$name"
+  ln -s "$d" ".agents/skills/$name"
 done
 ```
 
