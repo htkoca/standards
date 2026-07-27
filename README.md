@@ -7,6 +7,7 @@ Reusable agent skills (`SKILL.md` per directory) for project standards, portable
 - [accessibility](accessibility/SKILL.md) — WCAG 2.0 AA baseline, motion, focus, contrast
 - [components](components/SKILL.md) — shadcn/CVA component authoring shape and atomic-design organization
 - [data](data/SKILL.md) — content/state location and discipline (`constants/`, dates, media)
+- [decisions](decisions/SKILL.md) — when to consult the harness-engineering corpus for an unresolved agent-design decision
 - [git](git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
 - [nextjs](nextjs/SKILL.md) — App Router conventions, runtime foundations, folder structure
 - [performance](performance/SKILL.md) — LCP, lazy-loading, motion/font budgets
