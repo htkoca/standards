@@ -1,6 +1,6 @@
 # harness-skills
 
-Reusable agent skills (`SKILL.md` per directory) for project standards, portable across projects and usable from both Claude Code and Codex.
+Reusable agent skills (`SKILL.md` per directory) for project standards, portable across projects and usable from Claude Code, Codex, and OpenCode.
 
 ## Skills
 
@@ -19,13 +19,16 @@ Reusable agent skills (`SKILL.md` per directory) for project standards, portable
 
 This repo isn't meant to be worked in directly by a project; vendor it in
 (git submodule, subtree, or plain clone, e.g. at `vendor/harness-skills`) and
-link the skills into each tool's own skills directory. Both Claude Code and
-Codex use the identical `<name>/SKILL.md` convention, just under different
-root folders, so one vendored copy serves both:
+link the skills into each tool's own skills directory. Claude Code, Codex,
+and OpenCode all use the identical `<name>/SKILL.md` convention, just under
+different root folders, so one vendored copy serves all three:
 
 - **Claude Code** scans `.claude/skills/<name>/SKILL.md`.
 - **Codex** scans `.agents/skills/<name>/SKILL.md` (repo root or current
   directory).
+- **OpenCode** scans both of the above as compatibility fallbacks, plus its
+  own `.opencode/skills/<name>/SKILL.md` — symlinking into `.claude/skills`
+  or `.agents/skills` already covers it, no extra step needed.
 
 Symlink the skills a project needs into both:
 
