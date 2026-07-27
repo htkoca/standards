@@ -10,6 +10,17 @@ honest with each other, and how milestones are cut and delivered. This skill
 is the methodology layer and stays project-agnostic; a project's PRD and plan
 derive their structure from it.
 
+**This governs initial development only** — gathering the brief through the
+first delivered milestone graph in the plan. Once a project has shipped past
+that initial arc (in production, iterating via normal feature work), the PRD
+is no longer the live planning surface; don't add new milestones to it or
+treat it as covering ongoing/incremental work. Before using a project's PRD
+for planning, check its last-applied version (§The PRD) against the version
+in the repo's package manifest (`package.json` version, or equivalent) — if
+the manifest is ahead, the PRD is behind current reality and describes a past
+state, not the current one; don't plan new work from it without confirming
+with the user first.
+
 ## The working loop
 
 Front-loaded on distillation and direction before any build:
@@ -52,6 +63,11 @@ derives from the ones before it:
 - **Directions are research, not contract.** An observation's direction lands
   only when the design file (and its transcription in the design contract)
   adopts it; where they conflict, the design contract wins.
+- **Record the version the PRD was last applied to.** Once the initial arc
+  ships, note the app version (matching the repo's package manifest) the plan
+  was current as of — e.g. in `06-plan.md`. That marker is what later agents
+  check against the manifest's current version to tell whether the PRD still
+  describes reality (see the governance note above).
 
 ## Division of truth
 
