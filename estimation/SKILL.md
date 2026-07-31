@@ -26,13 +26,16 @@ formula across the whole estimate — not per item:
    the real risk for a project is something else (e.g. unfamiliar codebase,
    flaky CI), swap in that reasoning instead, but keep the multiplier
    labeled for what it actually buys.
-3. **+10% contingency** on the doubled build-time subtotal.
-4. **A flat, one-time addition — not per line item** — for fixed overhead
-   that doesn't scale with the number of items: e.g. 1 hour of meetings, 1
-   hour of review/fix time, across the *whole* estimate. Confirm this
-   placement explicitly; the default instinct is to add it per item, which
+3. **Contingency, meetings, and review/fix time are each their own line
+   item** — never merged into a single "overhead" bucket. A reader should be
+   able to see the contingency percentage and the flat hours separately, not
+   a pre-summed number they have to trust.
+4. **Contingency scales with the build-time subtotal (e.g. +10%); meetings
+   and review/fix time are flat, one-time additions — not per line item.**
+   All three apply once across the *whole* estimate. Confirm this placement
+   explicitly; the default instinct is to add flat items per line, which
    silently lets fixed overhead dominate the total once there are more than
-   a couple of line items.
+   a couple of items.
 5. **Round to a clean increment** (e.g. nearest 0.25h, rounding up when
    between) at each stage.
 6. **If the total needs to round up to a "solid" number** (e.g. a stakeholder
