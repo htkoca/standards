@@ -29,7 +29,7 @@ This repo is both a plugin and its own marketplace, so it installs directly from
 GitHub:
 
 ```sh
-/plugin marketplace add htkoca/skills
+/plugin marketplace add htkoca/standards
 /plugin install harness-skills@htkoca
 ```
 
