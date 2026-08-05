@@ -19,14 +19,29 @@ How change is recorded.
    `github.com-*` host aliases, and it intermittently stalls — surfacing as
    `Operation timed out` on port 22, or `Please make sure you have the correct access
    rights and the repository exists`.
-2. **This is expected and transient. Do nothing but wait, then retry.** It is not a
-   credential, permission, or connectivity fault, and it does not mean the remote,
-   the key, or the repo is misconfigured.
-3. **Never "fix" it by changing configuration.** Do not rewrite remotes to HTTPS,
-   switch to `ssh.github.com:443`, regenerate or add keys, edit `~/.ssh/config`, or
-   re-authenticate `gh`. These churn working config to work around a stall that
-   clears on its own.
-4. **Commits are unaffected.** Local commits already succeeded; only the push is
+2. **This is expected and transient. Wait and retry first.** It is not a credential,
+   permission, or connectivity fault, and it does not mean the remote, the key, or
+   the repo is misconfigured.
+3. **If it persists, fall back to a token-authenticated HTTPS push or fetch**, passing
+   the URL explicitly on the command line:
+
+   ```sh
+   git push https://github.com/<owner>/<repo>.git HEAD:<branch>
+   git fetch --prune https://github.com/<owner>/<repo>.git "+refs/heads/*:refs/remotes/origin/*"
+   ```
+
+   - The `gh auth git-credential` helper supplies the token. Never embed it in the
+     URL — that leaks it into the reflog, config, and process list.
+   - Match the active `gh` account to the repo owner first (`gh auth switch -u <account>`);
+     the helper serves the active account's token, so a mismatch 404s on private repos.
+4. **The fallback is temporary and per-command.** Never `git remote set-url` to HTTPS,
+   never add a `url.*.insteadOf` rewrite, and never switch to `ssh.github.com:443`,
+   regenerate keys, edit `~/.ssh/config`, or re-authenticate `gh`. The configured SSH
+   remote stays exactly as it is; only the single command takes the detour.
+5. **After an explicit-URL push, refresh the tracking refs.** Pushing to a URL does not
+   update `refs/remotes/origin/*`, so the branch keeps reporting "ahead" despite being
+   pushed. Run the `fetch` above to make `git status` accurate again.
+6. **Commits are unaffected.** Local commits already succeeded; only the push is
    pending. Retry the push later rather than amending, resetting, or recommitting.
 
 ## Conventional Commits
