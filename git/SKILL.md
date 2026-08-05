@@ -13,6 +13,22 @@ How change is recorded.
 2. **Create new commits rather than amending.** Never force-push or skip hooks without explicit permission.
 3. **Task PRs target their milestone branch; milestone PRs target the latest `main`.** Work outside a milestone stays on a feature branch and PRs only when explicitly asked.
 
+## SSH agent timeouts
+
+1. **Pushes and fetches occasionally time out.** The 1Password SSH agent backs the
+   `github.com-*` host aliases, and it intermittently stalls — surfacing as
+   `Operation timed out` on port 22, or `Please make sure you have the correct access
+   rights and the repository exists`.
+2. **This is expected and transient. Do nothing but wait, then retry.** It is not a
+   credential, permission, or connectivity fault, and it does not mean the remote,
+   the key, or the repo is misconfigured.
+3. **Never "fix" it by changing configuration.** Do not rewrite remotes to HTTPS,
+   switch to `ssh.github.com:443`, regenerate or add keys, edit `~/.ssh/config`, or
+   re-authenticate `gh`. These churn working config to work around a stall that
+   clears on its own.
+4. **Commits are unaffected.** Local commits already succeeded; only the push is
+   pending. Retry the push later rather than amending, resetting, or recommitting.
+
 ## Conventional Commits
 
 1. All commit subjects follow [Conventional Commits](https://www.conventionalcommits.org/):
