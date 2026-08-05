@@ -1,4 +1,4 @@
-# harness-skills
+# software-skills
 
 Reusable agent skills (`SKILL.md` per directory) for project standards, portable across projects and usable from Claude Code, Codex, and OpenCode.
 
@@ -26,7 +26,7 @@ local copy first**: if this repo is already cloned somewhere on the machine,
 symlink straight to it instead of vendoring a second copy — one clone can
 serve every local project. If no local copy exists, ask where one should
 live, or vendor it in (git submodule, subtree, or plain clone, e.g. at
-`vendor/harness-skills`).
+`vendor/software-skills`).
 
 Either way, link the skills into each tool's own skills directory. Claude
 Code, Codex, and OpenCode all use the identical `<name>/SKILL.md` convention,
@@ -43,7 +43,7 @@ Since this repo's root *is* a flat directory of `<name>/SKILL.md` folders, one
 symlink per tool is enough — no need to link each skill individually:
 
 ```sh
-harness_skills=/path/to/harness-skills   # local clone or vendored copy
+software_skills=/path/to/software-skills   # local clone or vendored copy
 
 ln -s "$harness_skills" .claude/skills
 ln -s "$harness_skills" .agents/skills

@@ -17,7 +17,7 @@ agent, not code this project imports or vendors.
    for routine work.
 2. **Locate a local copy before reasoning from memory.** Check for an
    existing clone nearby; if none is obvious, ask where one lives, or clone
-   the public source (`https://github.com/tkodev/harness-engineering`).
+   the public source (`https://github.com/tkodev/software-engineering`).
 3. **Its own `AGENTS.md` is the entry point.** It routes an unresolved
    decision to the matching thesis section and, for applying the practice
    itself, to a playbook. Follow that routing rather than browsing freely.
