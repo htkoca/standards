@@ -9,7 +9,7 @@ Claude Code plugin.
 - [claude](skills/claude/SKILL.md) — Claude Code repo hygiene (CLAUDE.md symlink, gitignoring local state)
 - [components](skills/components/SKILL.md) — shadcn/CVA component authoring shape and atomic-design organization
 - [data](skills/data/SKILL.md) — content/state location and discipline (`constants/`, dates, media)
-- [decisions](skills/decisions/SKILL.md) — when to consult the engineering corpus for an unresolved agent-design decision
+- [engineering](skills/engineering/SKILL.md) — harness engineering: the bundled corpus and routing for unresolved agent-design decisions
 - [estimation](skills/estimation/SKILL.md) — sizing work
 - [figma](skills/figma/SKILL.md) — reading designs out of Figma: node structure over screenshots
 - [git](skills/git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
