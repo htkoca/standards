@@ -17,6 +17,7 @@ Claude Code plugin.
 - [listing-scrape](skills/listing-scrape/SKILL.md) — scraping a rental/real-estate listing into structured facts
 - [nextjs](skills/nextjs/SKILL.md) — App Router conventions, runtime foundations, folder structure
 - [performance](skills/performance/SKILL.md) — LCP, lazy-loading, motion/font budgets
+- [plain-english](skills/plain-english/SKILL.md) — plain-English discipline for docs and assistant tone (Orwell + STE); not marketing copy
 - [process](skills/process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
 - [seo](skills/seo/SKILL.md) — metadata, Open Graph, crawlable content
 - [testing](skills/testing/SKILL.md) — testing strategy stance

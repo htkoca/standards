@@ -7,7 +7,8 @@ description: House style for project prose — docs, plans, PR and commit bodies
 
 How project prose reads: docs, the plan, PR and commit bodies. This skill owns
 the sentences, not where facts live. Product or site copy is out of scope, since its
-voice is the design's.
+voice is the design's. Word-level plainness — Orwell's rules, the technical-English
+baseline, and the anti-marketing stance — is `plain-english`'s concern.
 
 ## Voice
 
