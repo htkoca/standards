@@ -1,0 +1,14 @@
+{
+  "name": "htkoca",
+  "owner": {
+    "name": "Tony Ko",
+    "url": "https://github.com/htkoca"
+  },
+  "plugins": [
+    {
+      "name": "harness-skills",
+      "source": "./",
+      "description": "Reusable agent skills for project standards — frontend architecture, design systems, accessibility, git and delivery process, plus scraping skills for job postings and rental listings."
+    }
+  ]
+}

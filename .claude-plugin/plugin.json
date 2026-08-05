@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "harness-skills",
+  "displayName": "Harness Skills",
+  "description": "Reusable agent skills for project standards — frontend architecture, design systems, accessibility, git and delivery process, plus scraping skills for job postings and rental listings.",
+  "author": {
+    "name": "Tony Ko",
+    "url": "https://github.com/htkoca"
+  },
+  "repository": "https://github.com/htkoca/harness-skills",
+  "keywords": [
+    "skills",
+    "standards",
+    "nextjs",
+    "design-systems",
+    "accessibility",
+    "process"
+  ]
+}

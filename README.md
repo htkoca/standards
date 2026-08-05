@@ -1,85 +1,80 @@
-# software-skills
+# harness-skills
 
-Reusable agent skills (`SKILL.md` per directory) for project standards, portable across projects and usable from Claude Code, Codex, and OpenCode.
+Reusable agent skills (`SKILL.md` per directory) for project standards, packaged as a
+Claude Code plugin.
 
 ## Skills
 
-- [accessibility](accessibility/SKILL.md) — WCAG 2.0 AA baseline, motion, focus, contrast
-- [claude](claude/SKILL.md) — Claude Code repo hygiene (CLAUDE.md symlink, gitignoring local state)
-- [components](components/SKILL.md) — shadcn/CVA component authoring shape and atomic-design organization
-- [data](data/SKILL.md) — content/state location and discipline (`constants/`, dates, media)
-- [decisions](decisions/SKILL.md) — when to consult the harness-engineering corpus for an unresolved agent-design decision
-- [figma](figma/SKILL.md) — reading designs out of Figma: node structure over screenshots
-- [git](git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
-- [nextjs](nextjs/SKILL.md) — App Router conventions, runtime foundations, folder structure
-- [performance](performance/SKILL.md) — LCP, lazy-loading, motion/font budgets
-- [process](process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
-- [seo](seo/SKILL.md) — metadata, Open Graph, crawlable content
-- [testing](testing/SKILL.md) — testing strategy stance
-- [vscode](vscode/SKILL.md) — editor-session hygiene (reopen after a move/rename)
-- [writing](writing/SKILL.md) — house style for docs, plans, PR/commit bodies
+- [accessibility](skills/accessibility/SKILL.md) — WCAG 2.0 AA baseline, motion, focus, contrast
+- [claude](skills/claude/SKILL.md) — Claude Code repo hygiene (CLAUDE.md symlink, gitignoring local state)
+- [components](skills/components/SKILL.md) — shadcn/CVA component authoring shape and atomic-design organization
+- [data](skills/data/SKILL.md) — content/state location and discipline (`constants/`, dates, media)
+- [decisions](skills/decisions/SKILL.md) — when to consult the harness-engineering corpus for an unresolved agent-design decision
+- [estimation](skills/estimation/SKILL.md) — sizing work
+- [figma](skills/figma/SKILL.md) — reading designs out of Figma: node structure over screenshots
+- [git](skills/git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
+- [jd-scrape](skills/jd-scrape/SKILL.md) — scraping a job posting or careers page into structured facts
+- [listing-scrape](skills/listing-scrape/SKILL.md) — scraping a rental/real-estate listing into structured facts
+- [nextjs](skills/nextjs/SKILL.md) — App Router conventions, runtime foundations, folder structure
+- [performance](skills/performance/SKILL.md) — LCP, lazy-loading, motion/font budgets
+- [process](skills/process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
+- [seo](skills/seo/SKILL.md) — metadata, Open Graph, crawlable content
+- [testing](skills/testing/SKILL.md) — testing strategy stance
+- [vscode](skills/vscode/SKILL.md) — editor-session hygiene (reopen after a move/rename)
+- [writing](skills/writing/SKILL.md) — house style for docs, plans, PR/commit bodies
 
-## Using this from another repo
+## Installing
 
-This repo isn't meant to be worked in directly by a project. **Check for a
-local copy first**: if this repo is already cloned somewhere on the machine,
-symlink straight to it instead of vendoring a second copy — one clone can
-serve every local project. If no local copy exists, ask where one should
-live, or vendor it in (git submodule, subtree, or plain clone, e.g. at
-`vendor/software-skills`).
-
-Either way, link the skills into each tool's own skills directory. Claude
-Code, Codex, and OpenCode all use the identical `<name>/SKILL.md` convention,
-just under different root folders, so one copy serves all three:
-
-- **Claude Code** scans `.claude/skills/<name>/SKILL.md`.
-- **Codex** scans `.agents/skills/<name>/SKILL.md` (repo root or current
-  directory).
-- **OpenCode** scans both of the above as compatibility fallbacks, plus its
-  own `.opencode/skills/<name>/SKILL.md` — symlinking into `.claude/skills`
-  or `.agents/skills` already covers it, no extra step needed.
-
-**Link each skill individually, not the whole directory.** Symlinking this repo's
-root onto `.claude/skills` works, but it takes the whole directory hostage: the
-consuming repo can then only have the shared skills, with nowhere to put one of
-its own. Linking per skill keeps `skills/` a real directory that holds shared
-and per-repo skills side by side.
-
-[`link-skills.sh`](link-skills.sh) does this, and regenerates the `.gitignore`
-block that goes with it:
+This repo is both a plugin and its own marketplace, so it installs directly from
+GitHub:
 
 ```sh
-/path/to/software-skills/link-skills.sh /path/to/target-repo
+/plugin marketplace add htkoca/harness-skills
+/plugin install harness-skills@htkoca
 ```
 
-It creates `.claude/skills/<name>` and `.agents/skills/<name>` symlinks for every
-skill here, and leaves any real directory it finds — a repo's own skill — alone.
-Re-run it after adding or renaming a skill in this repo. To expose only a subset,
-link those by hand instead:
+Plugin skills are namespaced by plugin name, so they invoke as
+`/harness-skills:nextjs`, `/harness-skills:git`, and so on. Claude also picks them
+up automatically when a task matches a skill's `description`.
 
-```sh
-software_skills=/path/to/software-skills   # local clone or vendored copy
+Pull updates with `/plugin marketplace update`.
 
-mkdir -p .claude/skills .agents/skills
-ln -s "$software_skills/nextjs" .claude/skills/nextjs
-ln -s "$software_skills/nextjs" .agents/skills/nextjs
+### Versioning
+
+[`plugin.json`](.claude-plugin/plugin.json) deliberately sets no `version`. Claude
+Code then falls back to the git commit SHA, so every pushed commit is treated as a
+new version and installs track the latest state of the default branch — no version
+bump step to remember. The tradeoff is that there are no pinnable releases: a user
+cannot ask for a specific version, and updates always move to the tip. Add a
+`version` field if that ever matters.
+
+## Layout
+
+Standard Claude Code plugin structure:
+
+```text
+.claude-plugin/
+  plugin.json         plugin manifest (name, metadata; no version by design)
+  marketplace.json    marketplace catalog listing this repo as its own plugin
+skills/
+  <name>/SKILL.md     one directory per skill
 ```
 
-**Gitignore the symlinks, not the directory.** A symlink into a local clone holds
-that machine's absolute path, so committing it breaks every other clone — but
-ignoring `.claude/skills` wholesale would also ignore the repo's own skills. Ignore
-one entry per linked skill (`.claude/skills/nextjs`, …), which is what
-`link-skills.sh` writes into its managed block, and anything else under `skills/`
-stays tracked. A symlink into a *vendored* copy (a submodule or subtree checked in
-at a relative path) is portable and can be committed as-is.
+The `skills/` directory is scanned by default, so the manifest needs no `skills`
+field — and adding one would replace that default scan rather than extend it, since
+the marketplace entry's `source` resolves to the marketplace root.
 
-For distributing to many repos or teams without vendoring, both tools also
-support packaged, centrally-updatable distribution: Claude Code via a
-`.claude-plugin/marketplace.json` (`/plugin marketplace add`), Codex via its
-own plugin format. Heavier to set up than symlinking, but versioned and
-updated in one place.
+## Other agent tools
 
-Codex also reads `AGENTS.md` at the repo root for persistent instructions.
-This repo's own [AGENTS.md](AGENTS.md) documents rules for working in *this*
-repo; reference it from a consuming project's `AGENTS.md` rather than merging
-its content in.
+The `<name>/SKILL.md` convention is shared: Codex scans `.agents/skills/`, and
+OpenCode reads both `.claude/skills/` and `.agents/skills/` as compatibility
+fallbacks plus its own `.opencode/skills/`. The plugin mechanism above is
+Claude-Code-specific, so reaching those tools means symlinking or vendoring
+`skills/<name>` into the relevant directory. If you do symlink into a local clone,
+gitignore one entry per linked skill rather than the whole `skills/` directory, so
+a consuming repo's own skills stay tracked.
+
+Codex also reads `AGENTS.md` at the repo root for persistent instructions. This
+repo's own [AGENTS.md](AGENTS.md) documents rules for working in *this* repo;
+reference it from a consuming project's `AGENTS.md` rather than merging its
+content in.
