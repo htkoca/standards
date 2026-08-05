@@ -1,4 +1,4 @@
-# harness-skills
+# standards
 
 Reusable agent skills (`SKILL.md` per directory) for project standards, packaged as a
 Claude Code plugin.
@@ -30,11 +30,11 @@ GitHub:
 
 ```sh
 /plugin marketplace add htkoca/standards
-/plugin install harness-skills@htkoca
+/plugin install standards@htkoca
 ```
 
 Plugin skills are namespaced by plugin name, so they invoke as
-`/harness-skills:nextjs`, `/harness-skills:git`, and so on. Claude also picks them
+`/standards:nextjs`, `/standards:git`, and so on. Claude also picks them
 up automatically when a task matches a skill's `description`.
 
 Pull updates with `/plugin marketplace update`.
