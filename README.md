@@ -9,7 +9,7 @@ Claude Code plugin.
 - [claude](skills/claude/SKILL.md) — Claude Code repo hygiene (CLAUDE.md symlink, gitignoring local state)
 - [components](skills/components/SKILL.md) — shadcn/CVA component authoring shape and atomic-design organization
 - [data](skills/data/SKILL.md) — content/state location and discipline (`constants/`, dates, media)
-- [decisions](skills/decisions/SKILL.md) — when to consult the harness-engineering corpus for an unresolved agent-design decision
+- [decisions](skills/decisions/SKILL.md) — when to consult the engineering corpus for an unresolved agent-design decision
 - [estimation](skills/estimation/SKILL.md) — sizing work
 - [figma](skills/figma/SKILL.md) — reading designs out of Figma: node structure over screenshots
 - [git](skills/git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
@@ -29,7 +29,7 @@ This repo is both a plugin and its own marketplace, so it installs directly from
 GitHub:
 
 ```sh
-/plugin marketplace add htkoca/harness-skills
+/plugin marketplace add htkoca/skills
 /plugin install harness-skills@htkoca
 ```
 

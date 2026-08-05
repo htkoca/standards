@@ -1,6 +1,6 @@
 ---
 name: decisions
-description: When and how to consult the harness-engineering corpus — reference material for shaping the context and tools around an agent. Use when writing or debugging a SKILL.md/AGENTS.md, deciding what belongs in context vs. tools vs. code, defining an agent's authority or permission boundary, choosing progressive disclosure vs. a runbook vs. a sidecar, or diagnosing a bad agent trajectory.
+description: When and how to consult the engineering corpus — reference material for shaping the context and tools around an agent. Use when writing or debugging a SKILL.md/AGENTS.md, deciding what belongs in context vs. tools vs. code, defining an agent's authority or permission boundary, choosing progressive disclosure vs. a runbook vs. a sidecar, or diagnosing a bad agent trajectory.
 ---
 
 # Decision
@@ -17,7 +17,7 @@ agent, not code this project imports or vendors.
    for routine work.
 2. **Locate a local copy before reasoning from memory.** Check for an
    existing clone nearby; if none is obvious, ask where one lives, or clone
-   the public source (`https://github.com/htkoca/harness-engineering`).
+   the public source (`https://github.com/htkoca/engineering`).
 3. **Its own `AGENTS.md` is the entry point.** It routes an unresolved
    decision to the matching thesis section and, for applying the practice
    itself, to a playbook. Follow that routing rather than browsing freely.
