@@ -39,30 +39,39 @@ just under different root folders, so one copy serves all three:
   own `.opencode/skills/<name>/SKILL.md` — symlinking into `.claude/skills`
   or `.agents/skills` already covers it, no extra step needed.
 
-Since this repo's root *is* a flat directory of `<name>/SKILL.md` folders, one
-symlink per tool is enough — no need to link each skill individually:
+**Link each skill individually, not the whole directory.** Symlinking this repo's
+root onto `.claude/skills` works, but it takes the whole directory hostage: the
+consuming repo can then only have the shared skills, with nowhere to put one of
+its own. Linking per skill keeps `skills/` a real directory that holds shared
+and per-repo skills side by side.
+
+[`link-skills.sh`](link-skills.sh) does this, and regenerates the `.gitignore`
+block that goes with it:
+
+```sh
+/path/to/software-skills/link-skills.sh /path/to/target-repo
+```
+
+It creates `.claude/skills/<name>` and `.agents/skills/<name>` symlinks for every
+skill here, and leaves any real directory it finds — a repo's own skill — alone.
+Re-run it after adding or renaming a skill in this repo. To expose only a subset,
+link those by hand instead:
 
 ```sh
 software_skills=/path/to/software-skills   # local clone or vendored copy
 
-ln -s "$harness_skills" .claude/skills
-ln -s "$harness_skills" .agents/skills
+mkdir -p .claude/skills .agents/skills
+ln -s "$software_skills/nextjs" .claude/skills/nextjs
+ln -s "$software_skills/nextjs" .agents/skills/nextjs
 ```
 
-To expose only a subset of skills instead of all of them, symlink individual
-skill folders one at a time rather than the whole directory:
-
-```sh
-ln -s "$harness_skills/nextjs" .claude/skills/nextjs
-ln -s "$harness_skills/nextjs" .agents/skills/nextjs
-```
-
-**Gitignore the symlinks** (`.claude/skills`, `.agents/skills`) when they point
-at a local clone's absolute path — that path is specific to one machine, so
-committing the symlink breaks on any other clone. Add the two paths to
-`.gitignore` and let each machine link its own local copy in. A symlink into
-a *vendored* copy (a submodule/subtree checked into the repo at a relative
-path) is portable and can be committed as-is.
+**Gitignore the symlinks, not the directory.** A symlink into a local clone holds
+that machine's absolute path, so committing it breaks every other clone — but
+ignoring `.claude/skills` wholesale would also ignore the repo's own skills. Ignore
+one entry per linked skill (`.claude/skills/nextjs`, …), which is what
+`link-skills.sh` writes into its managed block, and anything else under `skills/`
+stays tracked. A symlink into a *vendored* copy (a submodule or subtree checked in
+at a relative path) is portable and can be committed as-is.
 
 For distributing to many repos or teams without vendoring, both tools also
 support packaged, centrally-updatable distribution: Claude Code via a
