@@ -92,4 +92,4 @@ Short. Do not restate the file.
 - Anything the listing contradicted itself on. The site's data tables and its descriptions disagree often enough to be worth flagging every time
 - Then the gate line, score, and verdict as the repo's scoring doc defines them
 
-Hold whatever reporting guardrails the repo's `AGENTS.md` sets when reporting.
+Hold whatever reporting guardrails the repo's `CLAUDE.md` sets when reporting.

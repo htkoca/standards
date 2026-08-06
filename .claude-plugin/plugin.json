@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "standards",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "displayName": "Standards",
   "description": "Reusable agent skills for project standards — frontend architecture, design systems, accessibility, git and delivery process, plus scraping skills for job postings and rental listings.",
   "author": {

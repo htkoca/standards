@@ -114,7 +114,7 @@ These apply to everything above, including the cases where the diction rules ben
 2. **Frontmatter on non-root markdown.** Every markdown doc that is not at a repo's
    root carries frontmatter in the same shape as a `SKILL.md`: a `name` and a
    `description` of what the doc covers and when to read it. Root-level files
-   (`README.md`, `AGENTS.md`, `CLAUDE.md`) are exempt.
+   (`README.md`, `CLAUDE.md`) are exempt.
 
    ```markdown
    ---
