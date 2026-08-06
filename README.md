@@ -19,7 +19,7 @@ Seventeen, in four groups.
 
 ### Craft
 
-- [writing](skills/writing/SKILL.md) — the writing standard: Orwell + STE, anti-slop, assistant tone, house rules
+- [writing](skills/writing/SKILL.md) — the writing standard: Orwell + STE, anti-slop, assistant tone, house rules. **Always on**, see [Always-on skills](#always-on-skills)
 - [git](skills/git/SKILL.md) — Conventional Commits, branch naming, no-AI-attribution
 - [process](skills/process/SKILL.md) — delivery methodology: PRD pipeline, milestones, review tiers
 - [estimation](skills/estimation/SKILL.md) — sizing work
@@ -35,6 +35,27 @@ Seventeen, in four groups.
 
 - [jd-scrape](skills/jd-scrape/SKILL.md) — scraping a job posting or careers page into structured facts
 - [listing-scrape](skills/listing-scrape/SKILL.md) — scraping a rental/real-estate listing into structured facts
+
+## Always-on skills
+
+Skills load on demand: Claude matches the task against each skill's `description` and
+reads the ones that fit. That is right for every skill here except one.
+
+[writing](skills/writing/SKILL.md) governs prose the agent produces whether or not a
+writing task was requested, including its own chat replies, so on-demand loading
+misses most of the cases it should cover. The plugin ships a `UserPromptSubmit` hook
+that injects a compact form of the standard on every prompt:
+
+```text
+hooks/
+  hooks.json            UserPromptSubmit → cat the compact standard
+  writing-always.txt    the injected text: ~20 lines, the rules without the reasoning
+```
+
+The hook activates when the plugin is installed and needs no per-repo setup. It costs
+about 250 tokens per prompt, which is why the injected file is a summary and the full
+standard stays in `SKILL.md` for anything longer than a short reply. Keep the two in
+step when either changes.
 
 ## Installing
 
@@ -100,6 +121,9 @@ Standard Claude Code plugin structure:
   marketplace.json    marketplace catalog listing this repo as its own plugin
 skills/
   <name>/SKILL.md     one directory per skill
+hooks/
+  hooks.json          hook config, loaded automatically from this path
+  writing-always.txt  text injected on every prompt (see Always-on skills)
 ```
 
 The `skills/` directory is scanned by default, so the manifest needs no `skills`

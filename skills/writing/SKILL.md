@@ -1,12 +1,20 @@
 ---
 name: writing
-description: The writing standard for all prose — Orwell's six rules, an ASD-STE100 baseline, and house rules for structure, economy, and mechanics. Use when drafting, rewriting, editing, reviewing, simplifying, or de-slopping any written output: docs, READMEs, comments, plans, PR and commit bodies, and the agent's own replies. Marketing and product copy relax the diction rules but keep the house rules.
+description: The writing standard for all prose — Orwell's six rules, an ASD-STE100 baseline, anti-slop, assistant tone, and house rules. ALWAYS ON: it governs every piece of prose the agent produces, including its own chat replies, so a compact form is injected on every prompt by this plugin's UserPromptSubmit hook. Read this file in full before drafting anything long, before any rewrite, edit, review, simplify, or de-slop request, and whenever a rule needs its reasoning or its exceptions. Marketing and product copy relax the diction rules but keep the house rules.
 ---
 
 # Writing
 
 One standard for how prose reads, whatever it is for. The goal is to reduce slop: to
 cut the inherited phrase, the inflated word, and the sentence that carries nothing.
+
+**This skill is always on.** It is the one skill here that applies without being
+invoked, because it governs every reply the agent writes, not only the files it
+edits. The plugin ships a `UserPromptSubmit` hook
+([`hooks/hooks.json`](../../hooks/hooks.json)) that injects the compact form in
+[`hooks/writing-always.txt`](../../hooks/writing-always.txt) on every prompt. That
+file is the summary; this one is the standard. Keep the two in step, and read this
+file in full for anything longer than a short reply.
 
 Adapted from the `orwell-writing` skill in
 [tamdogood/builder-essential-skills](https://github.com/tamdogood/builder-essential-skills)
