@@ -1,6 +1,6 @@
 ---
 name: writing
-description: The writing standard for all prose — Orwell's six rules, an ASD-STE100 baseline, anti-slop, assistant tone, and house rules. ALWAYS ON: it governs every piece of prose the agent produces, including its own chat replies, so a compact form is injected on every prompt by this plugin's UserPromptSubmit hook. Read this file in full before drafting anything long, before any rewrite, edit, review, simplify, or de-slop request, and whenever a rule needs its reasoning or its exceptions. Marketing and product copy relax the diction rules but keep the house rules.
+description: The writing standard for all prose (Orwell's six rules, an ASD-STE100 baseline, anti-slop, assistant tone, and house rules). ALWAYS ON: it governs every piece of prose the agent produces, including its own chat replies. This plugin's SessionStart hook loads this file in full once per session, and its UserPromptSubmit hook injects a compact form on every prompt. Re-read it when a rule needs its reasoning or its exceptions. Marketing and product copy relax the diction rules but keep the house rules.
 ---
 
 # Writing
@@ -10,11 +10,12 @@ cut the inherited phrase, the inflated word, and the sentence that carries nothi
 
 **This skill is always on.** It is the one skill here that applies without being
 invoked, because it governs every reply the agent writes, not only the files it
-edits. The plugin ships a `UserPromptSubmit` hook
-([`hooks/hooks.json`](../../hooks/hooks.json)) that injects the compact form in
-[`hooks/writing-always.txt`](../../hooks/writing-always.txt) on every prompt. That
-file is the summary; this one is the standard. Keep the two in step, and read this
-file in full for anything longer than a short reply.
+edits. Two hooks in [`hooks/hooks.json`](../../hooks/hooks.json) load it without the
+agent having to ask: `SessionStart` cats this file in full once per session
+(including after a compaction, when it would otherwise drop out of context), and
+`UserPromptSubmit` injects the compact form in
+[`hooks/writing-always.txt`](../../hooks/writing-always.txt) on every prompt as the
+reminder. That file is the summary; this one is the standard. Keep the two in step.
 
 Adapted from the `orwell-writing` skill in
 [tamdogood/builder-essential-skills](https://github.com/tamdogood/builder-essential-skills)
@@ -58,7 +59,7 @@ For reference docs, procedures, and error messages, the ASD-STE100 discipline:
 
 1. **One idea per sentence.** One main action or statement.
 2. **Name the actor.** Clear subject, active verb, whenever the actor matters.
-3. **Same term, same thing.** Never vary a term just to avoid repetition — variation
+3. **Same term, same thing.** Never vary a term just to avoid repetition: variation
    reads as a distinction that isn't there.
 4. **Familiar words with one meaning.** No idioms, no slang, no vague verbs
    ("handle", "support", "deal with").
@@ -107,7 +108,7 @@ The same discipline applied to a reply:
 rules: a superlative, a fresh metaphor, and rhythm for its own sake are the job
 there, not failures. What does not bend: claims stay falsifiable.
 
-**Creative and narrative prose** — fiction, talks, personal essays — treats the
+**Creative and narrative prose** (fiction, talks, personal essays) treats the
 technical baseline as an aid, not a constraint. Keep intentional ambiguity, cadence,
 dialogue, and character voice. Remove only what is inherited, inflated, or evasive.
 Apply the baseline strictly only on request, and say when that request fights the
